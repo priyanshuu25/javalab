@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <h1>Product manager</h1>
+    <xmp> 
+        import java.util.Scanner;
+
+public class ProductManagement {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int choice;
+        do {
+            System.out.println("\nMenu:");
+            System.out.println("1. Add Book");
+            System.out.println("2. Add Cardisc");
+            System.out.println("3. Add Travel Guide");
+            System.out.println("4. Exit");
+            System.out.print("Enter your choice: ");
+            choice = sc.nextInt();
+            sc.nextLine();  // Consume the newline after reading int
+
+            switch (choice) {
+                case 1:
+                    addBook(sc);
+                    break;
+                case 2:
+                    addCardisc(sc);
+                    break;
+                case 3:
+                    addTravelGuide(sc);
+                    break;
+                case 4:
+                    System.out.println("Exiting...");
+                    break;
+                default:
+                    System.out.println("Invalid choice!");
+            }
+        } while (choice != 4);
+
+        sc.close();
+    }
+
+    private static void addBook(Scanner sc) {
+        System.out.println("\nEnter Book Details:");
+        System.out.print("Product_id: ");
+        String product_id = sc.nextLine(); 
+        System.out.print("Description: ");
+        String description = sc.nextLine();
+        System.out.print("Name: ");
+        String name = sc.nextLine();
+        System.out.print("Price: ");
+        int price = sc.nextInt();
+        sc.nextLine();  // Consume the newline after reading int
+        System.out.print("ISBN: ");
+        String isbn = sc.nextLine();
+        System.out.print("Author: ");
+        String author = sc.nextLine();
+        System.out.print("Title: ");
+        String title = sc.nextLine();
+
+        book bookObj = new book(product_id, description, name, price, isbn, author, title);
+        bookObj.print();
+    }
+
+    private static void addCardisc(Scanner sc) {
+        System.out.println("\nEnter Cardisc Details:");
+        System.out.print("Product_id: ");
+        String product_id = sc.nextLine();
+        System.out.print("Description: ");
+        String description = sc.nextLine();
+        System.out.print("Name: ");
+        String name = sc.nextLine();
+        System.out.print("Price: ");
+        int price = sc.nextInt();
+        sc.nextLine();  // Consume the newline after reading int
+        System.out.print("Artist: ");
+        String artist = sc.nextLine();
+        System.out.print("Title: ");
+        String title = sc.nextLine();
+
+        cardisc cardiscObj = new cardisc(product_id, description, name, price, artist, title);
+        cardiscObj.print();
+    }
+
+    private static void addTravelGuide(Scanner sc) {
+        System.out.println("\nEnter Travel Guide Details:");
+        System.out.print("Product_id: ");
+        String product_id = sc.nextLine();  
+        System.out.print("Description: ");
+        String description = sc.nextLine();
+        System.out.print("Name: ");
+        String name = sc.nextLine();
+        System.out.print("Price: ");
+        int price = sc.nextInt();
+        sc.nextLine();  // Consume the newline after reading int
+        System.out.print("ISBN: ");
+        String isbn = sc.nextLine();
+        System.out.print("Author: ");
+        String author = sc.nextLine();
+        System.out.print("Title: ");
+        String title = sc.nextLine();
+        System.out.print("Country: ");
+        String country = sc.nextLine();
+
+        travelguide guideObj = new travelguide(product_id, description, name, price, isbn, author, title, country);
+        guideObj.print();
+    }
+}
+
+abstract class abstractproduct {
+    protected String product_id;
+    protected String description;
+    protected String name;
+
+    abstractproduct(String product_id, String description, String name) {
+        this.product_id = product_id;
+        this.description = description;
+        this.name = name;
+    }
+
+    public void print() {
+        System.out.println("This is an abstract class");
+    }
+}
+
+class product extends abstractproduct {
+    protected int price;
+
+    product(String product_id, String description, String name, int price) {
+        super(product_id, description, name);
+        this.price = price;
+    }
+
+    public void print() {
+        System.out.println("Product_id: " + product_id + ", Description: " + description + ", Name: " + name + ", Price: " + price);
+    }
+}
+
+class book extends product {
+    protected String isbn;
+    protected String author;
+    protected String title;
+
+    book(String product_id, String description, String name, int price, String isbn, String author, String title) {
+        super(product_id, description, name, price);
+        this.isbn = isbn;
+        this.author = author;
+        this.title = title;
+    }
+
+    public void print() {
+        System.out.println("Product_id: " + product_id + ", Description: " + description + ", Name: " + name +
+                ", Price: " + price + ", ISBN: " + isbn + ", Author: " + author + ", Title: " + title);
+    }
+}
+
+class cardisc extends product {
+    protected String artist;
+    protected String title;
+
+    cardisc(String product_id, String description, String name, int price, String artist, String title) {
+        super(product_id, description, name, price);
+        this.artist = artist;
+        this.title = title;
+    }
+
+    public void print() {
+        System.out.println("Product_id: " + product_id + ", Description: " + description + ", Name: " + name +
+                ", Price: " + price + ", Artist: " + artist + ", Title: " + title);
+    }
+}
+
+class travelguide extends book {
+    protected String country;
+
+    // Add constructor for the travelguide class
+    travelguide(String product_id, String description, String name, int price, String isbn, String author, String title, String country) {
+        super(product_id, description, name, price, isbn, author, title);
+        this.country = country;
+    }
+
+    // Override the print method to include the country
+    @Override
+    public void print() {
+        System.out.println("Product_id: " + product_id + ", Description: " + description + ", Name: " + name +
+                ", Price: " + price + ", ISBN: " + isbn + ", Author: " + author + ", Title: " + title +
+                ", Country: " + country);
+    }
+}
+    </xmp>
+
+
+    <h1>Matrix opration</h1>
+    <xmp>
+        import java.util.Scanner;
+
+class Matrix {
+    private int rows;
+    private int columns;
+    private int[][] data;
+
+    // Constructor for NxN matrix
+    public Matrix(int n) {
+        this(n, n);
+    }
+
+    // Constructor for MxN matrix
+    public Matrix(int m, int n) {
+        this.rows = m;
+        this.columns = n;
+        this.data = new int[m][n];
+        // Initialize variables accordingly (e.g., you can leave them as 0)
+    }
+
+    // Method to print the matrix
+    public void print_Mat() {
+        System.out.println("Matrix:");
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                System.out.print(data[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    // Method to get data for the matrix from the user
+    public void get_Data() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter matrix elements:");
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                System.out.print("Element at position (" + (i + 1) + "," + (j + 1) + "): ");
+                data[i][j] = scanner.nextInt();
+            }
+        }
+    }
+
+    // Method to add two matrices
+    public Matrix add_Mat(Matrix matrix) {
+        if (this.rows != matrix.rows || this.columns != matrix.columns) {
+            System.out.println("Matrix addition is not possible. Matrices must have the same dimensions.");
+            return null;
+        }
+
+        Matrix result = new Matrix(rows, columns);
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                result.data[i][j] = this.data[i][j] + matrix.data[i][j];
+            }
+        }
+
+        return result;
+    }
+
+    // Method to multiply two matrices
+    public Matrix mult_Mat(Matrix matrix) {
+        if (this.columns != matrix.rows) {
+            System.out.println("Matrix multiplication is not possible. Number of columns in the first matrix must be equal to the number of rows in the second matrix.");
+            return null;
+        }
+
+        Matrix result = new Matrix(this.rows, matrix.columns);
+
+        for (int i = 0; i < this.rows; i++) {
+            for (int j = 0; j < matrix.columns; j++) {
+                for (int k = 0; k < this.columns; k++) {
+                    result.data[i][j] += this.data[i][k] * matrix.data[k][j];
+                }
+            }
+        }
+
+        return result;
+    }
+}
+
+public class MatrixOperations {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Enter dimensions for Matrix A:");
+        System.out.print("Rows: ");
+        int m1 = scanner.nextInt();
+        System.out.print("Columns: ");
+        int n1 = scanner.nextInt();
+
+        Matrix matrixA = new Matrix(m1, n1);
+        matrixA.get_Data();
+
+        System.out.println("\nEnter dimensions for Matrix B:");
+        System.out.print("Rows: ");
+        int m2 = scanner.nextInt();
+        System.out.print("Columns: ");
+        int n2 = scanner.nextInt();
+
+        Matrix matrixB = new Matrix(m2, n2);
+        matrixB.get_Data();
+
+        int choice;
+        do {
+            System.out.println("\nMenu:");
+            System.out.println("1. Print Matrix A");
+            System.out.println("2. Print Matrix B");
+            System.out.println("3. Add Matrices");
+            System.out.println("4. Multiply Matrices");
+            System.out.println("5. Exit");
+            System.out.print("Enter your choice: ");
+            choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    matrixA.print_Mat();
+                    break;
+                case 2:
+                    matrixB.print_Mat();
+                    break;
+                case 3:
+                    Matrix sumMatrix = matrixA.add_Mat(matrixB);
+                    if (sumMatrix != null) {
+                        System.out.println("Sum of matrices:");
+                        sumMatrix.print_Mat();
+                    }
+                    break;
+                case 4:
+                    Matrix productMatrix = matrixA.mult_Mat(matrixB);
+                    if (productMatrix != null) {
+                        System.out.println("Product of matrices:");
+                        productMatrix.print_Mat();
+                    }
+                    break;
+                case 5:
+                    System.out.println("Exiting program.");
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please enter a valid option.");
+            }
+        } while (choice != 5);
+    }
+}
+    </xmp>
+
+    <h1>Staff teacher typiest</h1>
+    <xmp>
+        import java.util.Scanner;
+
+class Staff {
+    protected String code;
+    protected String name;
+
+    public Staff(String code, String name) {
+        this.code = code;
+        this.name = name;
+    }
+
+    public void showDetails() {
+        System.out.println("Code: " + code + ", Name: " + name);
+    }
+}
+
+class Teacher extends Staff {
+    private String subject;
+    private String publication;
+
+    public Teacher(String code, String name, String subject, String publication) {
+        super(code, name);
+        this.subject = subject;
+        this.publication = publication;
+    }
+
+    @Override
+    public void showDetails() {
+        super.showDetails();
+        System.out.println("Subject: " + subject + ", Publication: " + publication);
+    }
+}
+
+class Officer extends Staff {
+    private String grade;
+
+    public Officer(String code, String name, String grade) {
+        super(code, name);
+        this.grade = grade;
+    }
+
+    @Override
+    public void showDetails() {
+        super.showDetails();
+        System.out.println("Grade: " + grade);
+    }
+}
+
+class Typist extends Staff {
+    protected int speed;
+
+    public Typist(String code, String name, int speed) {
+        super(code, name);
+        this.speed = speed;
+    }
+
+    @Override
+    public void showDetails() {
+        super.showDetails();
+        System.out.println("Typing Speed: " + speed + " words per minute");
+    }
+}
+
+class RegularTypist extends Typist {
+    private double remuneration;
+
+    public RegularTypist(String code, String name, int speed, double remuneration) {
+        super(code, name, speed);
+        this.remuneration = remuneration;
+    }
+
+    @Override
+    public void showDetails() {
+        super.showDetails();
+        System.out.println("Remuneration: " + remuneration);
+    }
+}
+
+class CasualTypist extends Typist {
+    private double dailyWages;
+
+    public CasualTypist(String code, String name, int speed, double dailyWages) {
+        super(code, name, speed);
+        this.dailyWages = dailyWages;
+    }
+
+    @Override
+    public void showDetails() {
+        super.showDetails();
+        System.out.println("Daily Wages: " + dailyWages);
+    }
+}
+
+public class InstitutionDatabase {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("\n1. Enter Teacher Details");
+            System.out.println("2. Enter Officer Details");
+            System.out.println("3. Enter Regular Typist Details");
+            System.out.println("4. Enter Casual Typist Details");
+            System.out.println("5. Exit");
+            System.out.print("Enter your choice: ");
+
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Consume newline
+
+            switch (choice) {
+                case 1:
+                    // Assuming inputs are provided here for simplicity
+                    Teacher teacher = new Teacher("T001", "Alice", "Mathematics", "Algebra Basics");
+                    teacher.showDetails();
+                    break;
+                case 2:
+                    Officer officer = new Officer("O001", "Bob", "Grade 1");
+                    officer.showDetails();
+                    break;
+                case 3:
+                    RegularTypist regularTypist = new RegularTypist("RT001", "Charlie", 55, 3000);
+                    regularTypist.showDetails();
+                    break;
+                case 4:
+                    CasualTypist casualTypist = new CasualTypist("CT001", "Dave", 45, 150);
+                    casualTypist.showDetails();
+                    break;
+                case 5:
+                    System.out.println("Exiting...");
+                    scanner.close();
+                    return;
+                default:
+                    System.out.println("Invalid choice, please enter a number between 1 and 5.");
+            }
+        }
+    }
+}
+    </xmp>
+
+
+    <h1>Stack</h1>
+    <xmp>
+        class Stack {
+            private int maxSize;
+            private int[] stackArray;
+            private int top;
+        
+            // Constructor
+            public Stack(int size) {
+                this.maxSize = size;
+                this.stackArray = new int[maxSize];
+                this.top = -1;
+            }
+        
+            // Method to push element onto the stack
+            public void push(int value) {
+                if (isFull()) {
+                    System.out.println("Stack is full. Cannot push element.");
+                    return;
+                }
+                top++;
+                stackArray[top] = value;
+                System.out.println("Pushed " + value + " onto the stack.");
+            }
+        
+            // Method to pop element from the stack
+            public int pop() {
+                if (isEmpty()) {
+                    System.out.println("Stack is empty. Cannot pop element.");
+                    return -1;
+                }
+                int poppedValue = stackArray[top];
+                top--;
+                System.out.println("Popped " + poppedValue + " from the stack.");
+                return poppedValue;
+            }
+        
+            // Method to check if stack is empty
+            public boolean isEmpty() {
+                return (top == -1);
+            }
+        
+            // Method to check if stack is full
+            public boolean isFull() {
+                return (top == maxSize - 1);
+            }
+        
+            // Method to peek the top element of the stack
+            public int peek() {
+                if (isEmpty()) {
+                    System.out.println("Stack is empty. Cannot peek element.");
+                    return -1;
+                }
+                return stackArray[top];
+            }
+        }
+        
+        public class StackArrayDemo {
+            public static void main(String[] args) {
+                Stack stack = new Stack(5);
+                
+                // Pushing elements onto the stack
+                stack.push(10);
+                stack.push(20);
+                stack.push(30);
+                
+                // Popping element from the stack
+                stack.pop();
+                
+                // Peeking the top element of the stack
+                System.out.println("Top element of the stack: " + stack.peek());
+            }
+        }      //4th
+    </xmp>
+
+    <h1>bank</h1>
+    <xmp>
+        import java.util.*;
+class bank{
+	int account_no;
+	String name;
+	String type;
+	int balance;
+	void openAccount(int i)
+	{
+		this.account_no=1000+i;
+		this.balance=0;
+	}
+	void deposite(int money)
+	{
+		this.balance+=money;
+	}
+	void withdraw(int money)
+	{
+		if((this.type).equals("saving"))
+		{
+			if(this.balance-money<1000)
+			{
+				System.out.println("for saving account 1000 balance should be maintained");
+			}
+			else
+			{
+				this.balance-=money;
+			}
+		}
+		if((this.type).equals("current"))
+		{
+			if(this.balance-money<25000)
+			{
+				System.out.println("for current account 25000 balance should be maintained");
+			}
+			else
+			{
+				this.balance-=money;
+			}
+		}
+	}
+	void display()
+	{
+		System.out.println("account holder name="+this.name+"\naccount balance="+this.balance);
+	}
+	public static void main(String[]arg)
+	{
+		bank[] arr=new bank[10];
+		int i=0,j,a=1;
+		for(j=0;j<10;j++)
+		{
+			arr[j]=new bank();
+		}
+		while(a!=0)
+		{
+			System.out.println("1-open an account\n2-deposite money\n3-withdraw money\n4-display balance");
+			Scanner sc=new Scanner(System.in);
+			int choice=sc.nextInt();
+			switch(choice)
+			{
+				case 1:System.out.println("enter the name of customer");
+					sc.nextLine();
+					arr[i].name=sc.nextLine();
+					System.out.println("enter the type of account s/c");
+					arr[i].type=sc.nextLine();
+					arr[i].openAccount(i);
+					i++;
+					break;
+				case 2:System.out.println("enter the account no");
+					int ano=sc.nextInt();
+					for(j=0;j<i;j++)
+					{
+						if(arr[j].account_no==ano)
+						{
+							System.out.println("enter the amount you want to deposite");
+							int depo=sc.nextInt();
+							arr[j].deposite(depo);	
+							break;
+						}
+					}
+					if(i==j)
+					{
+						System.out.println("account no. not found");
+					}
+					break;
+				case 3:System.out.println("enter the account no");
+					ano=sc.nextInt();
+					for(j=0;j<i;j++)
+					{
+						if(arr[j].account_no==ano)
+						{
+							System.out.println("enter the amount you want to withdraw");
+							int wd=sc.nextInt();
+							arr[j].withdraw(wd);
+							arr[j].display();	
+							break;
+						}
+					}
+					if(i==j)
+					{
+						System.out.println("account no. not found");
+					}
+					break;
+				case 4:System.out.println("enter the account no");
+					ano=sc.nextInt();
+					for(j=0;j<i;j++)
+					{
+						if(arr[j].account_no==ano)
+						{
+							arr[j].display();	
+							break;
+						}
+					}
+					if(i==j)
+					{
+						System.out.println("account no. not found");
+					}
+					break;	
+			}
+			System.out.println("do wou want to continue");
+			a=sc.nextInt();
+		}	
+	}
+}
+    </xmp>
+
+    <h1>complex number</h1>
+    <xmp>
+        import java.util.*;
+class complex
+{
+	int real;
+	int imaginary;
+	void addcomplex(complex b)
+	{
+		System.out.println("addition of 1st and 2nd complex no. is="+ (this.real+b.real)+"+"+" i "+"("+(this.imaginary+b.imaginary)+")");
+	}
+	void subComplex(complex b)
+	{
+		System.out.println("substraction of 1st and 2nd complex no. is="+ (this.real-b.real)+"+" + " i "+"("+(this.imaginary-b.imaginary)+")");
+	}
+	void mulComplex(complex b)
+	{
+		System.out.println("multiplication of 1st and 2nd complex no. is="+ ((this.real*b.real)-(this.imaginary*b.imaginary))+"+"+" i " + "("+((this.real*b.imaginary)+(this.imaginary*b.real))+")");
+	}
+	public static void main(String[]arg)
+	{
+		complex a=new complex(),b=new complex();
+		int ch=1;
+		Scanner sc=new Scanner(System.in);
+		System.out.println("enter the 1st complex no. real part");
+		a.real=sc.nextInt();
+		System.out.println("enter the 1st complex no. imaginary part");
+		a.imaginary=sc.nextInt();
+		System.out.println("enter the real part of 1st complex no.");
+		b.real=sc.nextInt();
+		System.out.println("enter the imaginary part of 2nd complex no.");
+		b.imaginary=sc.nextInt();
+		while(ch!=0)
+		{
+			System.out.println("1-addition\n2-substraction\n3-multiplication");
+			int c=sc.nextInt();
+			switch(c)
+			{
+				case 1:a.addcomplex(b);
+					break;
+				case 2:a.subComplex(b);
+					break;	
+				case 3:a.mulComplex(b);	
+					break;
+			}
+			System.out.println("do you want to continue");
+			ch=sc.nextInt();
+		}	
+	}
+}
+    </xmp>
+</body>
+</html>
