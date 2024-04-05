@@ -347,8 +347,8 @@ public class MatrixOperations {
     </xmp>
 
     <h1>Staff teacher typiest</h1>
-    <xmp>
-        import java.util.Scanner;
+   <xmp>
+    import java.util.Scanner;
 
 class Staff {
     protected String code;
@@ -458,20 +458,49 @@ public class InstitutionDatabase {
 
             switch (choice) {
                 case 1:
-                    // Assuming inputs are provided here for simplicity
-                    Teacher teacher = new Teacher("T001", "Alice", "Mathematics", "Algebra Basics");
+                    System.out.print("Enter code: ");
+                    String teacherCode = scanner.nextLine();
+                    System.out.print("Enter name: ");
+                    String teacherName = scanner.nextLine();
+                    System.out.print("Enter subject: ");
+                    String subject = scanner.nextLine();
+                    System.out.print("Enter publication: ");
+                    String publication = scanner.nextLine();
+                    Teacher teacher = new Teacher(teacherCode, teacherName, subject, publication);
                     teacher.showDetails();
                     break;
                 case 2:
-                    Officer officer = new Officer("O001", "Bob", "Grade 1");
+                    System.out.print("Enter code: ");
+                    String officerCode = scanner.nextLine();
+                    System.out.print("Enter name: ");
+                    String officerName = scanner.nextLine();
+                    System.out.print("Enter grade: ");
+                    String grade = scanner.nextLine();
+                    Officer officer = new Officer(officerCode, officerName, grade);
                     officer.showDetails();
                     break;
                 case 3:
-                    RegularTypist regularTypist = new RegularTypist("RT001", "Charlie", 55, 3000);
+                    System.out.print("Enter code: ");
+                    String regularTypistCode = scanner.nextLine();
+                    System.out.print("Enter name: ");
+                    String regularTypistName = scanner.nextLine();
+                    System.out.print("Enter typing speed: ");
+                    int speed1 = scanner.nextInt();
+                    System.out.print("Enter remuneration: ");
+                    double remuneration = scanner.nextDouble();
+                    RegularTypist regularTypist = new RegularTypist(regularTypistCode, regularTypistName, speed1, remuneration);
                     regularTypist.showDetails();
                     break;
                 case 4:
-                    CasualTypist casualTypist = new CasualTypist("CT001", "Dave", 45, 150);
+                    System.out.print("Enter code: ");
+                    String casualTypistCode = scanner.nextLine();
+                    System.out.print("Enter name: ");
+                    String casualTypistName = scanner.nextLine();
+                    System.out.print("Enter typing speed: ");
+                    int speed2 = scanner.nextInt();
+                    System.out.print("Enter daily wages: ");
+                    double dailyWages = scanner.nextDouble();
+                    CasualTypist casualTypist = new CasualTypist(casualTypistCode, casualTypistName, speed2, dailyWages);
                     casualTypist.showDetails();
                     break;
                 case 5:
@@ -484,208 +513,262 @@ public class InstitutionDatabase {
         }
     }
 }
-    </xmp>
+
+   </xmp>
 
 
     <h1>Stack</h1>
     <xmp>
-        class Stack {
-            private int maxSize;
-            private int[] stackArray;
-            private int top;
-        
-            // Constructor
-            public Stack(int size) {
-                this.maxSize = size;
-                this.stackArray = new int[maxSize];
-                this.top = -1;
-            }
-        
-            // Method to push element onto the stack
-            public void push(int value) {
-                if (isFull()) {
-                    System.out.println("Stack is full. Cannot push element.");
+        import java.util.Scanner;
+
+class Stack {
+    private int maxSize;
+    private int[] stackArray;
+    private int top;
+
+    // Constructor
+    public Stack(int size) {
+        this.maxSize = size;
+        this.stackArray = new int[maxSize];
+        this.top = -1;
+    }
+
+    // Method to push element onto the stack
+    public void push(int value) {
+        if (isFull()) {
+            System.out.println("Stack is full. Cannot push element.");
+            return;
+        }
+        top++;
+        stackArray[top] = value;
+        System.out.println("Pushed " + value + " onto the stack.");
+    }
+
+    // Method to pop element from the stack
+    public int pop() {
+        if (isEmpty()) {
+            System.out.println("Stack is empty. Cannot pop element.");
+            return -1;
+        }
+        int poppedValue = stackArray[top];
+        top--;
+        System.out.println("Popped " + poppedValue + " from the stack.");
+        return poppedValue;
+    }
+
+    // Method to check if stack is empty
+    public boolean isEmpty() {
+        return (top == -1);
+    }
+
+    // Method to check if stack is full
+    public boolean isFull() {
+        return (top == maxSize - 1);
+    }
+
+    // Method to peek the top element of the stack
+    public int peek() {
+        if (isEmpty()) {
+            System.out.println("Stack is empty. Cannot peek element.");
+            return -1;
+        }
+        return stackArray[top];
+    }
+}
+
+public class StackArrayDemo {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter the size of the stack: ");
+        int size = scanner.nextInt();
+        Stack stack = new Stack(size);
+
+        while (true) {
+            System.out.println("\n1. Push");
+            System.out.println("2. Pop");
+            System.out.println("3. Peek");
+            System.out.println("4. Exit");
+            System.out.print("Enter your choice: ");
+
+            int choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter the value to push: ");
+                    int valueToPush = scanner.nextInt();
+                    stack.push(valueToPush);
+                    break;
+                case 2:
+                    int poppedValue = stack.pop();
+                    if (poppedValue != -1) {
+                        System.out.println("Popped value: " + poppedValue);
+                    }
+                    break;
+                case 3:
+                    int topElement = stack.peek();
+                    if (topElement != -1) {
+                        System.out.println("Top element of the stack: " + topElement);
+                    }
+                    break;
+                case 4:
+                    System.out.println("Exiting...");
+                    scanner.close();
                     return;
-                }
-                top++;
-                stackArray[top] = value;
-                System.out.println("Pushed " + value + " onto the stack.");
-            }
-        
-            // Method to pop element from the stack
-            public int pop() {
-                if (isEmpty()) {
-                    System.out.println("Stack is empty. Cannot pop element.");
-                    return -1;
-                }
-                int poppedValue = stackArray[top];
-                top--;
-                System.out.println("Popped " + poppedValue + " from the stack.");
-                return poppedValue;
-            }
-        
-            // Method to check if stack is empty
-            public boolean isEmpty() {
-                return (top == -1);
-            }
-        
-            // Method to check if stack is full
-            public boolean isFull() {
-                return (top == maxSize - 1);
-            }
-        
-            // Method to peek the top element of the stack
-            public int peek() {
-                if (isEmpty()) {
-                    System.out.println("Stack is empty. Cannot peek element.");
-                    return -1;
-                }
-                return stackArray[top];
+                default:
+                    System.out.println("Invalid choice. Please enter a number between 1 and 4.");
             }
         }
-        
-        public class StackArrayDemo {
-            public static void main(String[] args) {
-                Stack stack = new Stack(5);
-                
-                // Pushing elements onto the stack
-                stack.push(10);
-                stack.push(20);
-                stack.push(30);
-                
-                // Popping element from the stack
-                stack.pop();
-                
-                // Peeking the top element of the stack
-                System.out.println("Top element of the stack: " + stack.peek());
-            }
-        }      //4th
-    </xmp>
+    }
+}
 
+    </xmp>
     <h1>bank</h1>
     <xmp>
-        import java.util.*;
-class bank{
-	int account_no;
-	String name;
-	String type;
-	int balance;
-	void openAccount(int i)
-	{
-		this.account_no=1000+i;
-		this.balance=0;
-	}
-	void deposite(int money)
-	{
-		this.balance+=money;
-	}
-	void withdraw(int money)
-	{
-		if((this.type).equals("saving"))
-		{
-			if(this.balance-money<1000)
-			{
-				System.out.println("for saving account 1000 balance should be maintained");
-			}
-			else
-			{
-				this.balance-=money;
-			}
-		}
-		if((this.type).equals("current"))
-		{
-			if(this.balance-money<25000)
-			{
-				System.out.println("for current account 25000 balance should be maintained");
-			}
-			else
-			{
-				this.balance-=money;
-			}
-		}
-	}
-	void display()
-	{
-		System.out.println("account holder name="+this.name+"\naccount balance="+this.balance);
-	}
-	public static void main(String[]arg)
-	{
-		bank[] arr=new bank[10];
-		int i=0,j,a=1;
-		for(j=0;j<10;j++)
-		{
-			arr[j]=new bank();
-		}
-		while(a!=0)
-		{
-			System.out.println("1-open an account\n2-deposite money\n3-withdraw money\n4-display balance");
-			Scanner sc=new Scanner(System.in);
-			int choice=sc.nextInt();
-			switch(choice)
-			{
-				case 1:System.out.println("enter the name of customer");
-					sc.nextLine();
-					arr[i].name=sc.nextLine();
-					System.out.println("enter the type of account s/c");
-					arr[i].type=sc.nextLine();
-					arr[i].openAccount(i);
-					i++;
-					break;
-				case 2:System.out.println("enter the account no");
-					int ano=sc.nextInt();
-					for(j=0;j<i;j++)
-					{
-						if(arr[j].account_no==ano)
-						{
-							System.out.println("enter the amount you want to deposite");
-							int depo=sc.nextInt();
-							arr[j].deposite(depo);	
-							break;
-						}
-					}
-					if(i==j)
-					{
-						System.out.println("account no. not found");
-					}
-					break;
-				case 3:System.out.println("enter the account no");
-					ano=sc.nextInt();
-					for(j=0;j<i;j++)
-					{
-						if(arr[j].account_no==ano)
-						{
-							System.out.println("enter the amount you want to withdraw");
-							int wd=sc.nextInt();
-							arr[j].withdraw(wd);
-							arr[j].display();	
-							break;
-						}
-					}
-					if(i==j)
-					{
-						System.out.println("account no. not found");
-					}
-					break;
-				case 4:System.out.println("enter the account no");
-					ano=sc.nextInt();
-					for(j=0;j<i;j++)
-					{
-						if(arr[j].account_no==ano)
-						{
-							arr[j].display();	
-							break;
-						}
-					}
-					if(i==j)
-					{
-						System.out.println("account no. not found");
-					}
-					break;	
-			}
-			System.out.println("do wou want to continue");
-			a=sc.nextInt();
-		}	
-	}
+
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        // Example usage of the BankAccount class
+        BankAccount account = null;
+
+        // Menu-driven loop for deposit, withdrawal, and display
+        Scanner scanner = new Scanner(System.in);
+        int choice;
+
+        do {
+            System.out.println("\nMenu:");
+            System.out.println("1. Open Account");
+            System.out.println("2. Deposit");
+            System.out.println("3. Withdraw");
+            System.out.println("4. Display Account Details");
+            System.out.println("5. Exit");
+            System.out.println("Enter your choice: ");
+            choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    account = openAccountWithDeposit();
+                    break;
+                case 2:
+                    if (account != null) {
+                        System.out.println("Enter the amount to deposit: ");
+                        double depositAmount = scanner.nextDouble();
+                        account.deposit(depositAmount);
+                    } else {
+                        System.out.println("Please open an account first.");
+                    }
+                    break;
+                case 3:
+                    if (account != null) {
+                        System.out.println("Enter the amount to withdraw: ");
+                        double withdrawAmount = scanner.nextDouble();
+                        account.withdraw(withdrawAmount);
+                    } else {
+                        System.out.println("Please open an account first.");
+                    }
+                    break;
+                case 4:
+                    if (account != null) {
+                        account.display();
+                    } else {
+                        System.out.println("Please open an account first.");
+                    }
+                    break;
+                case 5:
+                    System.out.println("Exiting the program. Goodbye!");
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please enter a valid option.");
+            }
+        } while (choice != 5);
+    }
+
+    // Method to open an account with an initial deposit
+    private static BankAccount openAccountWithDeposit() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the name of the depositor: ");
+        String depositorName = scanner.nextLine();
+        System.out.println("Enter the account number: ");
+        long accountNumber = scanner.nextLong();
+        System.out.println("Enter the type of account (S/C): ");
+        char accountType = scanner.next().charAt(0);
+        if (!isValidAccountType(accountType)) {
+            System.out.println("Invalid account type. Defaulting to 'Savings' account.");
+            accountType = 'S';
+        }
+
+        // Loop until a valid initial deposit is made
+        double balance;
+        do {
+            System.out.println("Enter the initial deposit amount: ");
+            double initialDeposit = scanner.nextDouble();
+            balance = initialDeposit;
+            if (initialDeposit < getMinimumBalance(accountType)) {
+                System.out.println("Initial deposit must be at least the minimum balance.");
+                System.out.println("Please deposit again.");
+            } else {
+                System.out.println("Account opened successfully with initial deposit!");
+            }
+        } while (balance < getMinimumBalance(accountType));
+
+        return new BankAccount(depositorName, accountNumber, accountType, balance);
+    }
+
+    // Helper method to get minimum balance based on account type
+    private static double getMinimumBalance(char accountType) {
+        return (accountType == 'S') ? 1000 : 25000;
+    }
+
+    // Helper method to validate account type
+    private static boolean isValidAccountType(char type) {
+        return type == 'S' || type == 'C';
+    }
+}
+
+class BankAccount {
+    private String depositorName;
+    private long accountNumber;
+    private char accountType;
+    private double balance;
+
+    // Constructor
+    public BankAccount(String name, long accNumber, char accType, double initialBalance) {
+        depositorName = name;
+        accountNumber = accNumber;
+        accountType = Character.toUpperCase(accType);
+        balance = initialBalance;
+    }
+
+    // Method to deposit an amount
+    public void deposit(double amount) {
+        balance += amount;
+        System.out.println("Amount deposited successfully. Updated balance: " + balance);
+    }
+
+    // Method to withdraw an amount after checking balance
+    public void withdraw(double amount) {
+        double minimumBalance = getMinimumBalance();
+        if (balance - amount < minimumBalance) {
+            System.out.println("Insufficient funds. Minimum balance required: " + minimumBalance);
+        } else {
+            balance -= amount;
+            System.out.println("Amount withdrawn successfully. Updated balance: " + balance);
+        }
+    }
+
+    // Method to display name and balance
+    public void display() {
+        System.out.println("Depositor Name: " + depositorName);
+        System.out.println("Account Number: " + accountNumber);
+        System.out.println("Account Type: " + accountType);
+        System.out.println("Balance: " + balance);
+    }
+
+    // Helper method to get minimum balance based on account type
+    private double getMinimumBalance() {
+        return (accountType == 'S') ? 1000 : 25000;
+    }
 }
     </xmp>
 
