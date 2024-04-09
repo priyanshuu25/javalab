@@ -874,5 +874,91 @@ public class PingPongGame {
     }
 }
    </xmp>
+
+		<h1>question 3</h1>
+
+		<xmp>
+			import java.util.Scanner;
+
+class ArrayProcessor extends Thread {
+    private int[] array;
+    private int result;
+
+    public ArrayProcessor(int[] array) {
+        this.array = array;
+        this.result = 0;
+    }
+
+    @Override
+    public void run() {
+        if (Thread.currentThread().getName().equals("MaxThread")) {
+            findMax();
+        } else if (Thread.currentThread().getName().equals("AvgThread")) {
+            findAverage();
+        }
+    }
+
+    private void findMax() {
+        int max = Integer.MIN_VALUE;
+        for (int num : array) {
+            if (num > max) {
+                max = num;
+            }
+        }
+        result = max;
+    }
+
+    private void findAverage() {
+        int sum = 0;
+        for (int num : array) {
+            sum += num;
+        }
+        result = sum / array.length;
+    }
+
+    public int getResult() {
+        return result;
+    }
+}
+
+public class ArrayMaxAvg {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter the size of the array: ");
+        int size = scanner.nextInt();
+        int[] array = new int[size];
+
+        System.out.println("Enter the elements of the array:");
+        for (int i = 0; i < size; i++) {
+            array[i] = scanner.nextInt();
+        }
+
+        ArrayProcessor maxThread = new ArrayProcessor(array);
+        maxThread.setName("MaxThread");
+
+        ArrayProcessor avgThread = new ArrayProcessor(array);
+        avgThread.setName("AvgThread");
+
+        maxThread.start();
+        avgThread.start();
+
+        try {
+            maxThread.join();
+            avgThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        int maxResult = maxThread.getResult();
+        int avgResult = avgThread.getResult();
+
+        double ratio = (double) maxResult / avgResult;
+        System.out.println("Max of array / Avg of array = " + ratio);
+
+        scanner.close();
+    }
+}
+		</xmp>
 </body>
 </html>
