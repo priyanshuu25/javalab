@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+h<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -823,5 +823,56 @@ class complex
 	}
 }
     </xmp>
+
+   <xmp>
+	   import java.util.Random;
+
+class Printer {
+    private String message;
+
+    public Printer(String message) {
+        this.message = message;
+    }
+
+    public synchronized void printMessage() {
+        System.out.println(message);
+    }
+}
+
+class PingPongThread extends Thread {
+    private Printer printer;
+    private Random random;
+
+    public PingPongThread(Printer printer) {
+        this.printer = printer;
+        this.random = new Random();
+    }
+
+    @Override
+    public void run() {
+        while (true) {
+            try {
+                Thread.sleep(1000); // Sleep for one second
+                printer.printMessage();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+
+public class PingPongGame {
+    public static void main(String[] args) {
+        Printer pingPrinter = new Printer("Ping");
+        Printer pongPrinter = new Printer("PONG");
+
+        PingPongThread pingThread = new PingPongThread(pingPrinter);
+        PingPongThread pongThread = new PingPongThread(pongPrinter);
+
+        pingThread.start();
+        pongThread.start();
+    }
+}
+   </xmp>
 </body>
 </html>
